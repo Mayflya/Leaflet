@@ -1,17 +1,40 @@
+var userLat = 45.526;
+var userLong = -122.667;
+
+function getPosition() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(userPosition);
+  }
+}
+
+function userPosition(position) {
+  userLat = position.coords.latitude;
+  userLong = position.coords.longitude;
+  map.setView([userLat, userLong], 13);
+  var uRHere = L.marker([userLat, userLong]).addTo(map);
+
+  // var map = new L.map('map').setView([userLat, userLong], 13);
+  // var layer = L.esri.basemapLayer("Imagery").addTo(map);
+  // L.control.scale().addTo(map);
+}
+
+getPosition();
+
 //Sets the map in map div element
-var map = new L.map('map').setView([45.526, -122.667], 13);
+var map = new L.map('map').setView([userLat, userLong], 13);
 //var mapUppsala = new L.map('map').setView([59.85856380000001, 17.638926699999956], 10);
 
 
 //_______ESRI PLUGIN____________________________________________________________________________________________________
 
 //Esri plugin- Adding basemapLayer
-var layer = L.esri.basemapLayer("Imagery").addTo(map);
+var layer = L.esri.basemapLayer("Topographic").addTo(map);
 
  L.esri.featureLayer({
     url: 'http://services.arcgis.com/rOo16HdIMeOBI4Mb/ArcGIS/rest/services/Oldest_Surviving_Los_Angeles_Restaurants/FeatureServer/0'
   }).addTo(map);
 
+L.control.scale().addTo(map);
 
 //Adds dropdown for basemap selection
 
