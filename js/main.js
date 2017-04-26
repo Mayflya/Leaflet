@@ -1,29 +1,30 @@
 var userLat = 45.526;
 var userLong = -122.667;
 
-function getPosition() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(userPosition);
-  }
-}
+// function getPosition() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(userPosition);
+//   }
+// }
 
-function userPosition(position) {
-  userLat = position.coords.latitude;
-  userLong = position.coords.longitude;
-  map.setView([userLat, userLong], 13);
-  var uRHere = L.marker([userLat, userLong]).addTo(map);
+// function userPosition(position) {
+//   userLat = position.coords.latitude;
+//   userLong = position.coords.longitude;
+//   map.setView([userLat, userLong], 13);
+//   var uRHere = L.marker([userLat, userLong]).addTo(map);
 
-  // var map = new L.map('map').setView([userLat, userLong], 13);
-  // var layer = L.esri.basemapLayer("Imagery").addTo(map);
-  // L.control.scale().addTo(map);
-}
+//   // var map = new L.map('map').setView([userLat, userLong], 13);
+//   // var layer = L.esri.basemapLayer("Imagery").addTo(map);
+//   // L.control.scale().addTo(map);
+// }
 
-getPosition();
+// getPosition();
 
 //Sets the map in map div element
 var map = new L.map('map').setView([userLat, userLong], 13);
 //var mapUppsala = new L.map('map').setView([59.85856380000001, 17.638926699999956], 10);
 
+map.locate({setView: true, maxZoom: 13});
 
 //_______ESRI PLUGIN____________________________________________________________________________________________________
 
