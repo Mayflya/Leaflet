@@ -1,5 +1,5 @@
 //Sets the map in map div element
-var map = new L.map('map').setView([45.526, -122.667], 13);
+var map = new L.map('map').setView([59.85856380000001, 17.638926699999956], 13);
 //var mapUppsala = new L.map('map').setView([59.85856380000001, 17.638926699999956], 10);
 
 
@@ -8,11 +8,11 @@ var map = new L.map('map').setView([45.526, -122.667], 13);
 //Esri plugin- Adding basemapLayer
 var layer = L.esri.basemapLayer("Imagery").addTo(map);
 
- L.esri.featureLayer({
-    url: 'http://services.arcgis.com/rOo16HdIMeOBI4Mb/ArcGIS/rest/services/Oldest_Surviving_Los_Angeles_Restaurants/FeatureServer/0'
-  }).addTo(map);
+// var featureLayer= L.esri.featureLayer({
+  //  url: 'https://gisapp.msb.se/arcgis/rest/services/Raddningstjanst/Brandstationer/FeatureServer/0'
+ // }).addTo(map);
 
-
+//var wmsLayer = L.tileLayer.wms('http://opendata-view.smhi.se/met-obs/ows?',{ layers: 'nederbord_momentan_view',format: 'image/png',transparent: true }).addTo(map);
 //Adds dropdown for basemap selection
 
 var layerLabels;
@@ -76,9 +76,9 @@ myMarker.bindPopup("<h1>Hejsan</h1><p>Provar lite grejer</p>");
 var polyLine = L.polyline([[59.958563, 17.638926699999956], [59.92061, 17.91048], [59.85033,18.01485], [59.958563, 17.638926699999956]], {
     color: 'red'
 })
-// // The Function on() witch resides in the map class is used to listen to events.
-// // In this case "click" is the event. "e"" is an event object and contains info about the event
-// // e.latlng contains the event coords.    
+// The Function on() witch resides in the map class is used to listen to events.
+// In this case "click" is the event. "e"" is an event object and contains info about the event
+// e.latlng contains the event coords.    
 // map.on('click',function(e){
 //     var coord = e.latlng.toString().split(',');
 //     var lat = coord[0].split('(');
@@ -99,4 +99,6 @@ var myLayerGroup = L.layerGroup ([myMarker2,polyLine]);
 //Leaflet lets you add GeoJSON data(layer) to map with geoJson() method.
 var GeoJSONLayer = L.geoJson(myGeoJSON);
 GeoJSONLayer.addTo(map);
+
+myMarker.on('click',function(){window.alert("Test")});
 
