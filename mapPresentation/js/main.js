@@ -38,12 +38,18 @@
             popupAnchor : [0,-40]
         });
 
+        var markerBounds = [];
+
        markers.forEach(function (m) {
            console.log(m.latitude);
            console.log(m.popupData);
            //Parameters 
            var mark = L.marker([m.latitude, m.longitude], { icon: iconPath }).addTo(layerGroup);
            mark.bindPopup(m.popupData);
+           markerBounds.push([m.latitude, m.longitude])
+
        });
+
+       map.fitBounds(markerBounds);
 
        layerGroup.addTo(map);
