@@ -20,6 +20,7 @@
           this.esriFeatureLayer=esriFeatureLayer;
         }
 
+        // Förändra så funktionen tar värde för baskarta och feature-länk från Flow
         var mapData = new mapLayers("Streets",
         "https://gisapp.msb.se/arcgis/rest/services/Raddningstjanst/Brandstationer/FeatureServer/0");
 
@@ -27,6 +28,7 @@
         console.log("Init");
 
         var map = new L.map('map');
+<<<<<<< HEAD
 
         
         var locate = L.control.locate({
@@ -39,9 +41,11 @@
           }).addTo(map);
 
           locate.start();
+=======
+>>>>>>> origin/master
 
-        var layer = L.esri.basemapLayer("Streets").addTo(map);
-        var layerGroup = L.layerGroup();
+        var layer = L.esri.basemapLayer(mapData.esriBasemap).addTo(map);
+        var markerGroup = L.layerGroup();
         var iconPath = L.icon({
             iconUrl: "js/images/marker-icon.png",
             shadowUrl: "js/images/marker-shadow.png",
@@ -50,12 +54,19 @@
             popupAnchor : [0,-40]
         });
 
+        var markerBounds = [];
+
        markers.forEach(function (m) {
            console.log(m.latitude);
            console.log(m.popupData);
            //Parameters 
-           var mark = L.marker([m.latitude, m.longitude], { icon: iconPath }).addTo(layerGroup);
+           var mark = L.marker([m.latitude, m.longitude], { icon: iconPath }).addTo(markerGroup);
            mark.bindPopup(m.popupData);
+           markerBounds.push([m.latitude, m.longitude])
+
        });
 
-       layerGroup.addTo(map);
+       map.fitBounds(markerBounds);
+
+       markerGroup.addTo(map);
+       L.esri.featureLayer({url: mapData.esriFeatureLayer}).addTo(map);
