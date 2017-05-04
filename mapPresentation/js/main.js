@@ -26,7 +26,19 @@
 
         console.log("Init");
 
-        var map = new L.map('map').locate({setView:true,maxzoom:13});
+        var map = new L.map('map');
+
+        
+        var locate = L.control.locate({
+          flyTo:true,
+          locateOptions:{
+            setView:'once',
+              maxZoom: 13
+            }
+       
+          }).addTo(map);
+
+          locate.start();
 
         var layer = L.esri.basemapLayer("Streets").addTo(map);
         var layerGroup = L.layerGroup();
