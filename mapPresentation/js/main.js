@@ -28,24 +28,19 @@
         console.log("Init");
 
         var map = new L.map('map');
-<<<<<<< HEAD
 
-        
         var locate = L.control.locate({
           flyTo:true,
           locateOptions:{
             setView:'once',
               maxZoom: 13
             }
-       
           }).addTo(map);
 
           locate.start();
-=======
->>>>>>> origin/master
 
         var layer = L.esri.basemapLayer(mapData.esriBasemap).addTo(map);
-        var markerGroup = L.layerGroup();
+        var markerGroup = L.featureGroup();
         var iconPath = L.icon({
             iconUrl: "js/images/marker-icon.png",
             shadowUrl: "js/images/marker-shadow.png",
@@ -68,5 +63,15 @@
 
        map.fitBounds(markerBounds);
 
-       markerGroup.addTo(map);
-       L.esri.featureLayer({url: mapData.esriFeatureLayer}).addTo(map);
+      // markerGroup.addTo(map);  
+      // var fireMarkers= L.layerGroup();
+       // var fireStationsMarkers = 
+       L.esri.Cluster.featureLayer({
+         url: mapData.esriFeatureLayer
+        }).addTo(markerGroup);
+
+       //Clustering
+       var clusterMarkers= L.markerClusterGroup();
+       clusterMarkers.addLayer(markerGroup);
+       //clusterMarkers.addLayer(fireMarkers);
+       clusterMarkers.addTo(map);
