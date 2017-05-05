@@ -39,6 +39,22 @@
 
           locate.start();
 
+        var jobMarker = L.ExtraMarkers.icon({
+          icon: 'glyphicon-wrench',
+          markerColor: 'blue',
+          iconColor: 'white',
+          shape: 'square',
+          prefix: 'glyphicon'
+        })
+
+        var fireMarker = L.ExtraMarkers.icon({
+          icon: 'glyphicon-fire',
+          markerColor: 'red',
+          iconColor: 'yellow',
+          shape: 'circle',
+          prefix: 'glyphicon'
+        })
+
         var layer = L.esri.basemapLayer(mapData.esriBasemap).addTo(map);
         var markerGroup = L.featureGroup();
         var iconPath = L.icon({
@@ -55,7 +71,7 @@
            console.log(m.latitude);
            console.log(m.popupData);
            //Parameters 
-           var mark = L.marker([m.latitude, m.longitude], { icon: iconPath }).addTo(markerGroup);
+           var mark = L.marker([m.latitude, m.longitude], { icon: jobMarker }).addTo(markerGroup);
            mark.bindPopup(m.popupData);
            markerBounds.push([m.latitude, m.longitude])
 
@@ -63,6 +79,7 @@
 
        map.fitBounds(markerBounds);
 
+<<<<<<< HEAD
       // markerGroup.addTo(map);  
       // var fireMarkers= L.layerGroup();
        // var fireStationsMarkers = 
@@ -75,3 +92,14 @@
        clusterMarkers.addLayer(markerGroup);
        //clusterMarkers.addLayer(fireMarkers);
        clusterMarkers.addTo(map);
+=======
+       markerGroup.addTo(map);
+       L.esri.featureLayer({
+         url: mapData.esriFeatureLayer,
+         pointToLayer: function (geojson, latlng) {
+           return L.marker(latlng, {
+             icon: fireMarker
+           })
+         }
+       }).addTo(map);
+>>>>>>> origin/master
